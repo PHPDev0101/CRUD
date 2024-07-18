@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Home Page{% endblock %}</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                crossorigin="anonymous"></script>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {% block stylesheets %}
+        {% endblock %}
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ path('home') }}">CRUD project</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-around">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="btn btn-light" href="{{ path('home') }}">Home</a>
+                </li>
+                {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+                <li class="nav-item dropdown">
+                    <button class="btn btn-light dropdown-toggle"
+                            role="button"
+                            id="navbarDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        Options
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ path('post_list') }}">Posts</a>
+                        <a class="dropdown-item" href="{{ path('category_list') }}">Categories</a>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                {% if(not is_granted('IS_AUTHENTICATED_FULLY')) %}
+                    <li class="nav-item float-right">
+                        <a class="btn btn-light" href="{{ path('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item float-right">
+                        <a class="btn btn-light" href="{{ path('register') }}">Sign UP</a>
+                    </li>
+                {% endif %}
+                {% if(is_granted('IS_AUTHENTICATED_FULLY')) %}
+                    <li class="nav-item float-right">
+                        <a class="btn btn-light" href="{{ path('logout') }}">Logout</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+    </body>
+</html>
