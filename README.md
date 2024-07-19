@@ -5,6 +5,7 @@
 create DB and configure it's connection in .env file  
 
 in project folder do:  
-```$ composer install  
+```
+$ composer install  
 $ php bin/console d:m:m  
 $ symfony server:start  
